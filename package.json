@@ -1,0 +1,7 @@
+{
+  "name": "yantu",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

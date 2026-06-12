@@ -1,0 +1,4 @@
+node_modules/
+packages/server/data/*.db
+packages/server/uploads/
+packages/miniapp/miniprogram_npm/
