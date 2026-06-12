@@ -1,1 +1,21 @@
-<view>clock</view>
+<view class="page">
+  <view class="countdown-card">
+    <text class="countdown-label">距考研还有</text>
+    <text class="countdown-days">{{daysLeft}}</text>
+    <text class="countdown-unit">天</text>
+  </view>
+
+  <view class="quote-card">
+    <text class="quote-text">"{{quote.text}}"</text>
+    <text class="quote-author">—— {{quote.author}}</text>
+  </view>
+
+  <view class="checkin-area">
+    <view
+      class="checkin-btn {{checkedToday ? 'checked' : ''}}"
+      bindtap="onCheckIn"
+    >
+      {{checkedToday ? '今日已打卡' : '能量打卡'}}
+    </view>
+  </view>
+</view>

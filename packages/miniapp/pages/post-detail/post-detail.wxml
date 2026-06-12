@@ -1,1 +1,44 @@
-<view>post-detail</view>
+<view class="page" wx:if="{{post}}">
+  <view class="detail-card">
+    <view class="author-row">
+      <image class="avatar" src="{{post.author.avatar_url}}" mode="aspectFill" />
+      <view class="author-info">
+        <text class="nickname">{{post.author.nick_name}}</text>
+        <text class="time">{{post.created_at}}</text>
+      </view>
+      <view class="category-tag">{{post.category}}</view>
+    </view>
+    <view class="content">{{post.content}}</view>
+    <view class="images" wx:if="{{post.images.length > 0}}">
+      <image
+        wx:for="{{post.images}}" wx:key="*this"
+        class="detail-image" src="{{item}}" mode="widthFix"
+        data-url="{{item}}" bindtap="onImageTap"
+      />
+    </view>
+    <view class="action-row">
+      <view class="like-btn" bindtap="onLikeTap">
+        <text>{{post.liked_by_me ? '❤️' : '🤍'}}</text>
+        <text>{{post.like_count || 0}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="comment-section">
+    <view class="section-title">评论 ({{comments.length}})</view>
+    <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+      <image class="comment-avatar" src="{{item.user.avatar_url}}" mode="aspectFill" />
+      <view class="comment-body">
+        <text class="comment-name">{{item.user.nick_name}}</text>
+        <text class="comment-content">{{item.content}}</text>
+        <text class="comment-time">{{item.created_at}}</text>
+      </view>
+    </view>
+    <view class="empty-comments" wx:if="{{comments.length === 0}}">暂无评论</view>
+  </view>
+
+  <view class="comment-bar">
+    <input class="comment-input" placeholder="写评论..." value="{{commentText}}" bindinput="onCommentInput" confirm-type="send" bindconfirm="onSubmitComment" />
+    <view class="send-btn" bindtap="onSubmitComment">发送</view>
+  </view>
+</view>

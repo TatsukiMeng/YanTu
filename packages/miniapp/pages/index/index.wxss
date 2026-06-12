@@ -1,62 +1,47 @@
-/**index.wxss**/
-page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.scrollarea {
-  flex: 1;
-  overflow-y: hidden;
+.page { padding-bottom: 120rpx; }
+
+.tabs {
+  white-space: nowrap;
+  background: #fff;
+  padding: 16rpx 20rpx;
+  border-bottom: 1rpx solid #eee;
 }
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
-  width: 80%;
+.tab-item {
+  display: inline-block;
+  padding: 12rpx 32rpx;
+  font-size: 28rpx;
+  color: #666;
+  border-radius: 32rpx;
+  margin-right: 16rpx;
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
+.tab-item.active {
+  background: #0052d9;
+  color: #fff;
+}
+
+.post-list { padding: 20rpx; }
+
+.loading, .empty {
+  text-align: center;
+  color: #999;
+  padding: 40rpx 0;
+  font-size: 26rpx;
+}
+
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 200rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #0052d9;
+  color: #fff;
   border-radius: 50%;
-}
-
-.usermotto {
-  margin-top: 200px;
-}
-
-.avatar-wrapper {
-  padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
-.avatar {
-  display: block;
-  width: 56px;
-  height: 56px;
-}
-
-.nickname-wrapper {
   display: flex;
-  width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-  border-top: .5px solid rgba(0, 0, 0, 0.1);
-  border-bottom: .5px solid rgba(0, 0, 0, 0.1);
-  color: black;
-}
-
-.nickname-label {
-  width: 105px;
-}
-
-.nickname-input {
-  flex: 1;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 82, 217, 0.4);
 }

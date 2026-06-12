@@ -1,1 +1,31 @@
-<view>post-create</view>
+<view class="page">
+  <textarea
+    class="content-input"
+    placeholder="分享你的考研心得..."
+    maxlength="500"
+    value="{{content}}"
+    bindinput="onContentInput"
+  />
+  <view class="picker-row">
+    <text class="label">分类：</text>
+    <picker mode="selector" range="{{categories}}" bindchange="onCategoryChange">
+      <view class="picker-value">
+        {{categoryIndex >= 0 ? categories[categoryIndex] : '请选择分类'}}
+      </view>
+    </picker>
+  </view>
+  <view class="image-section">
+    <view class="image-grid">
+      <view class="image-item" wx:for="{{images}}" wx:key="*this">
+        <image src="{{item}}" mode="aspectFill" class="preview-img" />
+        <view class="remove-btn" data-index="{{index}}" bindtap="removeImage">x</view>
+      </view>
+      <view class="image-add" wx:if="{{images.length < 3}}" bindtap="chooseImage">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加图片</text>
+      </view>
+    </view>
+    <text class="image-tip">最多3张</text>
+  </view>
+  <button class="submit-btn" bindtap="onSubmit">发布</button>
+</view>

@@ -1,0 +1,28 @@
+<view class="post-card" bindtap="onTap">
+  <view class="post-header">
+    <image class="avatar" src="{{post.author.avatar_url || '/static/default-avatar.png'}}" mode="aspectFill" />
+    <view class="post-meta">
+      <text class="nickname">{{post.author.nick_name}}</text>
+      <text class="time">{{post.created_at}}</text>
+    </view>
+    <view class="category-tag">{{post.category}}</view>
+  </view>
+  <view class="post-content">{{post.content}}</view>
+  <view class="post-images" wx:if="{{post.images.length > 0}}">
+    <image
+      wx:for="{{post.images}}"
+      wx:key="*this"
+      class="post-image"
+      src="{{item}}"
+      mode="aspectFill"
+      data-url="{{item}}"
+      bindtap="onImageTap"
+    />
+  </view>
+  <view class="post-footer">
+    <view class="like-btn" catchtap="onLikeTap">
+      <text class="like-icon">{{post.liked_by_me ? '❤️' : '🤍'}}</text>
+      <text class="like-count">{{post.like_count || 0}}</text>
+    </view>
+  </view>
+</view>

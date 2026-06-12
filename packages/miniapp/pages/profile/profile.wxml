@@ -1,1 +1,43 @@
-<view>profile</view>
+<view class="page">
+  <!-- 用户信息 -->
+  <view class="user-card" wx:if="{{userInfo}}">
+    <image class="user-avatar" src="{{userInfo.avatar_url}}" mode="aspectFill" />
+    <view class="user-info">
+      <text class="user-name">{{userInfo.nick_name}}</text>
+      <text class="user-level">Lv.{{userInfo.level}}</text>
+    </view>
+  </view>
+
+  <!-- 数据看板 -->
+  <view class="stats-grid">
+    <view class="stat-item">
+      <text class="stat-num">{{stats.checkInDays}}</text>
+      <text class="stat-label">累计打卡</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.postCount}}</text>
+      <text class="stat-label">我的发布</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.commentCount}}</text>
+      <text class="stat-label">我的评论</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.likeCount}}</text>
+      <text class="stat-label">获赞数</text>
+    </view>
+  </view>
+
+  <!-- 发布历史 -->
+  <view class="section">
+    <text class="section-title">我的发布</text>
+    <view class="post-item" wx:for="{{myPosts}}" wx:key="id" data-id="{{item.id}}" bindtap="onPostTap">
+      <view class="post-content">{{item.content}}</view>
+      <view class="post-meta">
+        <text class="post-category">{{item.category}}</text>
+        <text class="post-time">{{item.created_at}}</text>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{!loading && myPosts.length === 0}}">暂无发布</view>
+  </view>
+</view>

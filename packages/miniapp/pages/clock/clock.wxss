@@ -1,1 +1,42 @@
+.page { padding: 40rpx 20rpx; }
 
+.countdown-card {
+  background: linear-gradient(135deg, #0052d9, #0073e6);
+  border-radius: 24rpx;
+  padding: 60rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.countdown-label { font-size: 30rpx; opacity: 0.9; }
+.countdown-days { font-size: 120rpx; font-weight: 700; line-height: 1.2; }
+.countdown-unit { font-size: 30rpx; opacity: 0.9; }
+
+.quote-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  margin-top: 32rpx;
+}
+
+.quote-text { font-size: 30rpx; line-height: 1.8; color: #333; display: block; font-style: italic; }
+.quote-author { font-size: 26rpx; color: #999; display: block; text-align: right; margin-top: 16rpx; }
+
+.checkin-area { display: flex; justify-content: center; margin-top: 48rpx; }
+
+.checkin-btn {
+  width: 240rpx; height: 240rpx;
+  border-radius: 50%;
+  background: #0052d9;
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32rpx; font-weight: 500;
+  box-shadow: 0 8rpx 32rpx rgba(0, 82, 217, 0.3);
+}
+
+.checkin-btn.checked {
+  background: #ccc;
+  box-shadow: none;
+}
