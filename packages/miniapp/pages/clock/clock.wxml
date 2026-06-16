@@ -27,6 +27,17 @@
     </view>
   </view>
 
+  <!-- 打卡按钮 -->
+  <view class="checkin-area">
+    <view
+      class="checkin-btn {{checkedToday ? 'checked' : ''}}"
+      bindtap="onCheckIn"
+    >
+      <text class="checkin-btn-icon">{{checkedToday ? '✓' : '🔥'}}</text>
+      <text class="checkin-btn-text">{{checkedToday ? '今日已打卡' : '能量打卡'}}</text>
+    </view>
+  </view>
+
   <!-- 本月打卡日历 -->
   <view class="calendar-card">
     <text class="card-title">本月打卡</text>
@@ -46,16 +57,5 @@
   <view class="quote-card">
     <text class="quote-text">"{{quote.text}}"</text>
     <text class="quote-author">—— {{quote.author}}</text>
-  </view>
-
-  <!-- 打卡按钮 -->
-  <view class="checkin-area">
-    <view
-      class="checkin-btn {{checkedToday ? 'checked' : ''}}"
-      bindtap="onCheckIn"
-    >
-      <text class="checkin-btn-icon">{{checkedToday ? '✓' : '🔥'}}</text>
-      <text class="checkin-btn-text">{{checkedToday ? '今日已打卡' : '能量打卡'}}</text>
-    </view>
   </view>
 </view>

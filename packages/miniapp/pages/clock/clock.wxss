@@ -124,7 +124,7 @@
 }
 
 /* === 打卡按钮 === */
-.checkin-area { display: flex; justify-content: center; margin-top: 40rpx; }
+.checkin-area { display: flex; justify-content: center; margin-top: 24rpx; }
 
 .checkin-btn {
   width: 280rpx; height: 280rpx;
