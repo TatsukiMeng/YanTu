@@ -16,8 +16,10 @@ app.use('/uploads/*', serveStatic({ root: './' }));
 // 公开端点
 app.post('/api/auth/login', async (c) => {
   const { findUserByOpenid, createUser } = await import('./db.js');
-  const { code } = await c.req.json();
-  const openid = `mock_${code}`;
+  const { code, localUserId } = await c.req.json();
+  // 测试号没有 AppSecret，无法用 code 换 openid
+  // 优先用小程序本地生成的 localUserId 做稳定标识，否则退回 code（每次都变）
+  const openid = localUserId ? `mock_${localUserId}` : `mock_${code}`;
   let user = findUserByOpenid(openid);
   if (!user) user = createUser(openid);
   const token = signToken(user.id);

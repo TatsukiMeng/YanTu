@@ -1,11 +1,23 @@
 const api = require('./api')
 
+function getLocalUserId() {
+  let uid = wx.getStorageSync('localUserId')
+  if (!uid) {
+    uid = 'local_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10)
+    wx.setStorageSync('localUserId', uid)
+  }
+  return uid
+}
+
 function login() {
   return new Promise((resolve, reject) => {
+    const localUserId = getLocalUserId()
     wx.login({
       success(res) {
-        if (!res.code) { reject(new Error('wx.login failed')); return }
-        api.post('/api/auth/login', { code: res.code }).then(data => {
+        api.post('/api/auth/login', {
+          code: res.code || '',
+          localUserId,
+        }).then(data => {
           wx.setStorageSync('token', data.token)
           const app = getApp()
           if (app) {
