@@ -241,11 +241,15 @@ export function getUserStats(userId: number) {
 export function getUserPosts(userId: number, page: number, limit: number) {
   const offset = (page - 1) * limit;
   const posts = getDb().prepare(`
-    SELECT p.* FROM posts p
+    SELECT p.*, u.nick_name as author_name, u.avatar_url as author_avatar,
+      (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id) as like_count,
+      (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id AND l.user_id = ?) as liked_by_me
+    FROM posts p
+    JOIN users u ON p.user_id = u.id
     WHERE p.user_id = ?
     ORDER BY p.created_at DESC
     LIMIT ? OFFSET ?
-  `).all(userId, limit, offset) as any[];
+  `).all(userId, userId, limit, offset) as any[];
 
   const total = getDb().prepare(
     'SELECT COUNT(*) as c FROM posts WHERE user_id = ?'
@@ -258,6 +262,9 @@ export function getUserPosts(userId: number, page: number, limit: number) {
       category: p.category,
       images: absUrls(JSON.parse(p.images)),
       created_at: p.created_at,
+      author: { id: p.user_id, nick_name: p.author_name, avatar_url: absUrl(p.author_avatar) },
+      like_count: p.like_count,
+      liked_by_me: p.liked_by_me > 0,
     })),
     total: total.c,
   };

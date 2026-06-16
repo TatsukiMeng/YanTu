@@ -31,13 +31,7 @@
   <!-- 发布历史 -->
   <view class="section">
     <text class="section-title">我的发布</text>
-    <view class="post-item" wx:for="{{myPosts}}" wx:key="id" data-id="{{item.id}}" bindtap="onPostTap">
-      <view class="post-content">{{item.content}}</view>
-      <view class="post-meta">
-        <text class="post-category">{{item.category}}</text>
-        <text class="post-time">{{item.created_at}}</text>
-      </view>
-    </view>
+    <post-card wx:for="{{myPosts}}" wx:key="id" post="{{item}}" bind:like="onLike" />
     <view class="empty" wx:if="{{!loading && myPosts.length === 0}}">暂无发布</view>
   </view>
 </view>

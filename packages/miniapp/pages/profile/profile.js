@@ -28,8 +28,16 @@ Page({
     }).catch(() => this.setData({ loading: false }))
   },
 
-  onPostTap(e) {
-    const id = e.currentTarget.dataset.id
-    wx.navigateTo({ url: `/pages/post-detail/post-detail?id=${id}` })
+  onLike(e) {
+    const { id } = e.detail
+    api.post(`/api/posts/${id}/like`).then(data => {
+      const myPosts = this.data.myPosts.map(p => {
+        if (p.id === id) {
+          return { ...p, liked_by_me: data.liked, like_count: data.liked ? p.like_count + 1 : p.like_count - 1 }
+        }
+        return p
+      })
+      this.setData({ myPosts })
+    })
   },
 })

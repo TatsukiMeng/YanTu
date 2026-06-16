@@ -9,8 +9,7 @@ Component({
         wx.navigateTo({ url: `/pages/post-detail/post-detail?id=${post.id}` })
       }
     },
-    onLikeTap(e) {
-      e.stopPropagation()
+    onLikeTap() {
       this.triggerEvent('like', { id: this.properties.post.id })
     },
     onImageTap(e) {
