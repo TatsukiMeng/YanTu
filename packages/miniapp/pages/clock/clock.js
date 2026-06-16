@@ -40,7 +40,7 @@ Page({
     // 中国考研：当年12月倒数第二个周六（简化版）
     const now = new Date()
     const year = now.getFullYear()
-    const findExamSat = (y: number) => {
+    const findExamSat = (y) => {
       const dec31 = new Date(y, 11, 31)
       let lastSat = dec31
       while (lastSat.getDay() !== 6) lastSat.setDate(lastSat.getDate() - 1)
@@ -103,10 +103,10 @@ Page({
       if (firstWeekday < 0) firstWeekday = 6 // 周日=6
       const daysInMonth = new Date(year, month + 1, 0).getDate()
       const today = now.getDate()
-      const toLocalDate = (d: number) =>
+      const toLocalDate = (d) =>
         `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
 
-      const cells: any[] = []
+      const cells = []
       // 前置占位
       for (let i = 0; i < firstWeekday; i++) cells.push({ day: '', placeholder: true })
       for (let d = 1; d <= daysInMonth; d++) {
