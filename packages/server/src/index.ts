@@ -106,6 +106,23 @@ app.get('/api/checkin/today', authMiddleware, async (c) => {
   return c.json({ code: 0, data: { checked }, msg: 'success' });
 });
 
+app.get('/api/checkin/streak', authMiddleware, async (c) => {
+  const { getUserStreak } = await import('./db.js');
+  const userId = c.get('userId') as number;
+  const data = getUserStreak(userId);
+  return c.json({ code: 0, data, msg: 'success' });
+});
+
+app.get('/api/checkin/calendar', authMiddleware, async (c) => {
+  const { getCheckinCalendar } = await import('./db.js');
+  const userId = c.get('userId') as number;
+  const month = c.req.query('month');
+  const now = new Date();
+  const fallback = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const dates = getCheckinCalendar(userId, month || fallback);
+  return c.json({ code: 0, data: { dates }, msg: 'success' });
+});
+
 // 用户
 app.get('/api/user/profile', authMiddleware, async (c) => {
   const { getUserById, getUserStats } = await import('./db.js');

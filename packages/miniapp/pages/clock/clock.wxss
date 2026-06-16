@@ -1,42 +1,144 @@
 .page { padding: 40rpx 20rpx; }
 
+/* === 倒计时 === */
 .countdown-card {
   background: linear-gradient(135deg, #0052d9, #0073e6);
   border-radius: 24rpx;
-  padding: 60rpx 40rpx;
+  padding: 56rpx 40rpx 40rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #fff;
+  box-shadow: 0 12rpx 36rpx rgba(0, 82, 217, 0.25);
 }
 
-.countdown-label { font-size: 30rpx; opacity: 0.9; }
-.countdown-days { font-size: 120rpx; font-weight: 700; line-height: 1.2; }
-.countdown-unit { font-size: 30rpx; opacity: 0.9; }
+.countdown-label { font-size: 28rpx; opacity: 0.9; letter-spacing: 2rpx; }
 
+.countdown-main {
+  display: flex; align-items: baseline; margin-top: 16rpx;
+}
+.countdown-days {
+  font-size: 144rpx; font-weight: 800; line-height: 1;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 4rpx 12rpx rgba(0,0,0,0.15);
+}
+.countdown-unit { font-size: 32rpx; margin-left: 16rpx; opacity: 0.95; }
+
+.countdown-tick {
+  margin-top: 24rpx;
+  display: flex; align-items: center;
+  padding: 12rpx 32rpx;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999rpx;
+}
+.tick-num {
+  font-size: 36rpx; font-weight: 600;
+  font-family: 'Courier New', monospace;
+  min-width: 48rpx; text-align: center;
+}
+.tick-colon { font-size: 32rpx; margin: 0 4rpx; opacity: 0.85; }
+
+/* === 连续打卡 + 打卡率 === */
+.streak-row {
+  display: flex;
+  margin-top: 24rpx;
+  gap: 16rpx;
+}
+.streak-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 28rpx 24rpx;
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.streak-left { border-left: 6rpx solid #ff6b35; }
+.streak-right { border-left: 6rpx solid #0052d9; }
+
+.streak-num {
+  font-size: 56rpx; font-weight: 700; color: #333;
+  font-family: 'Courier New', monospace;
+  line-height: 1.1;
+}
+.streak-left .streak-num { color: #ff6b35; }
+.streak-right .streak-num { color: #0052d9; }
+.streak-label { font-size: 22rpx; color: #999; margin-top: 8rpx; }
+
+/* === 日历 === */
+.calendar-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx 24rpx;
+  margin-top: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.card-title {
+  font-size: 28rpx; font-weight: 600; color: #333;
+  display: block; margin-bottom: 24rpx;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12rpx;
+}
+.cal-weekday {
+  text-align: center;
+  font-size: 22rpx; color: #999;
+  padding-bottom: 8rpx;
+}
+.cal-cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24rpx; color: #555;
+  border-radius: 12rpx;
+  background: #f7f7f7;
+}
+.cal-cell.checked {
+  background: #0052d9;
+  color: #fff;
+  font-weight: 600;
+}
+.cal-cell.today {
+  border: 2rpx solid #ff6b35;
+  font-weight: 600;
+}
+.cal-cell.future { color: #ccc; }
+.cal-cell.placeholder { background: transparent; }
+
+/* === 名言 === */
 .quote-card {
   background: #fff;
   border-radius: 16rpx;
-  padding: 40rpx;
-  margin-top: 32rpx;
+  padding: 36rpx 32rpx;
+  margin-top: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.quote-text {
+  font-size: 28rpx; line-height: 1.8; color: #333;
+  display: block; font-style: italic;
+}
+.quote-author {
+  font-size: 24rpx; color: #999;
+  display: block; text-align: right; margin-top: 16rpx;
 }
 
-.quote-text { font-size: 30rpx; line-height: 1.8; color: #333; display: block; font-style: italic; }
-.quote-author { font-size: 26rpx; color: #999; display: block; text-align: right; margin-top: 16rpx; }
-
-.checkin-area { display: flex; justify-content: center; margin-top: 48rpx; }
+/* === 打卡按钮 === */
+.checkin-area { display: flex; justify-content: center; margin-top: 40rpx; }
 
 .checkin-btn {
-  width: 240rpx; height: 240rpx;
+  width: 280rpx; height: 280rpx;
   border-radius: 50%;
-  background: #0052d9;
+  background: linear-gradient(135deg, #0052d9, #0073e6);
   color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 32rpx; font-weight: 500;
-  box-shadow: 0 8rpx 32rpx rgba(0, 82, 217, 0.3);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 12rpx 40rpx rgba(0, 82, 217, 0.4);
+  transition: transform 0.2s;
 }
-
+.checkin-btn:active { transform: scale(0.95); }
 .checkin-btn.checked {
-  background: #ccc;
-  box-shadow: none;
+  background: linear-gradient(135deg, #999, #aaa);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
 }
+.checkin-btn-icon { font-size: 60rpx; }
+.checkin-btn-text { font-size: 28rpx; font-weight: 500; margin-top: 12rpx; letter-spacing: 2rpx; }

@@ -216,6 +216,59 @@ export function getTodayCheckIn(userId: number) {
   return !!row;
 }
 
+export function getUserStreak(userId: number) {
+  const rows = getDb().prepare(
+    'SELECT check_date FROM check_ins WHERE user_id = ? ORDER BY check_date DESC'
+  ).all(userId) as { check_date: string }[];
+  const dates = new Set(rows.map(r => r.check_date));
+
+  const now = new Date();
+  const toLocalDate = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
+  const today = toLocalDate(now);
+  const yesterday = toLocalDate(new Date(now.getTime() - 86400000));
+
+  // 连续打卡：从今天（或昨天）往前数，遇到第一个没打卡的天就停
+  let streak = 0;
+  let cursor = dates.has(today)
+    ? new Date(now)
+    : dates.has(yesterday)
+      ? new Date(now.getTime() - 86400000)
+      : null;
+  while (cursor) {
+    if (dates.has(toLocalDate(cursor))) {
+      streak++;
+      cursor = new Date(cursor.getTime() - 86400000);
+    } else {
+      break;
+    }
+  }
+
+  // 本月打卡率：本月已打卡天数 / 本月已过天数（不含今天也算到已过里，因为今天刚打卡就完成了"今天"）
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const todayDate = now.getDate();
+  const monthRows = getDb().prepare(
+    `SELECT COUNT(*) as c FROM check_ins WHERE user_id = ? AND check_date LIKE ?`
+  ).get(userId, `${year}-${String(month + 1).padStart(2, '0')}-%`) as { c: number };
+  const monthChecked = monthRows.c;
+  const rate = todayDate > 0 ? Math.round((monthChecked / todayDate) * 100) : 0;
+
+  return { streak, monthChecked, todayDate, rate };
+}
+
+export function getCheckinCalendar(userId: number, yearMonth: string) {
+  const rows = getDb().prepare(
+    `SELECT check_date FROM check_ins WHERE user_id = ? AND check_date LIKE ? ORDER BY check_date ASC`
+  ).all(userId, `${yearMonth}-%`) as { check_date: string }[];
+  return rows.map(r => r.check_date);
+}
+
 // Quote queries
 export function getRandomQuote() {
   return getDb().prepare('SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1').get() as any;
