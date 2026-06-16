@@ -21,20 +21,20 @@
       {
         "pagePath": "pages/index/index",
         "text": "研友圈",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "assets/tabbar/posts-normal.png",
+        "selectedIconPath": "assets/tabbar/posts-active.png"
       },
       {
         "pagePath": "pages/clock/clock",
         "text": "备考时钟",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "assets/tabbar/clock-normal.png",
+        "selectedIconPath": "assets/tabbar/clock-active.png"
       },
       {
         "pagePath": "pages/profile/profile",
         "text": "我的",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "assets/tabbar/user-normal.png",
+        "selectedIconPath": "assets/tabbar/user-active.png"
       }
     ]
   },
