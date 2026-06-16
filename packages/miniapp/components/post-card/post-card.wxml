@@ -1,6 +1,6 @@
 <view class="post-card" bindtap="onTap">
   <view class="post-header">
-    <image class="avatar" src="{{post.author.avatar_url || '/static/default-avatar.png'}}" mode="aspectFill" />
+    <image class="avatar" src="{{post.author.avatar_url}}" mode="aspectFill" />
     <view class="post-meta">
       <text class="nickname">{{post.author.nick_name}}</text>
       <text class="time">{{post.created_at}}</text>

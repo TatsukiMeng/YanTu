@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serveStatic } from 'hono/bun';
 import { authMiddleware, signToken } from './middleware/auth.js';
+import { absUrl } from './config.js';
 
 import './db.js';
 
@@ -24,7 +25,7 @@ app.post('/api/auth/login', async (c) => {
     code: 0,
     data: {
       token,
-      userInfo: { id: user.id, nick_name: user.nick_name, avatar_url: user.avatar_url, level: user.level },
+      userInfo: { id: user.id, nick_name: user.nick_name, avatar_url: absUrl(user.avatar_url), level: user.level },
     },
     msg: 'success',
   });
@@ -112,7 +113,7 @@ app.get('/api/user/profile', authMiddleware, async (c) => {
   return c.json({
     code: 0,
     data: {
-      userInfo: { id: userInfo.id, nick_name: userInfo.nick_name, avatar_url: userInfo.avatar_url, level: userInfo.level },
+      userInfo: { id: userInfo.id, nick_name: userInfo.nick_name, avatar_url: absUrl(userInfo.avatar_url), level: userInfo.level },
       stats,
     },
     msg: 'success',
@@ -136,7 +137,7 @@ app.put('/api/user/profile', authMiddleware, async (c) => {
   const userInfo = getUserById(userId);
   return c.json({
     code: 0,
-    data: { id: userInfo.id, nick_name: userInfo.nick_name, avatar_url: userInfo.avatar_url, level: userInfo.level },
+    data: { id: userInfo.id, nick_name: userInfo.nick_name, avatar_url: absUrl(userInfo.avatar_url), level: userInfo.level },
     msg: 'success',
   });
 });

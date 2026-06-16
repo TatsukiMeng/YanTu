@@ -1,6 +1,7 @@
 import { Database } from 'bun:sqlite';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { absUrl, absUrls } from './config.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DB_PATH = path.join(__dirname, '..', 'data', 'yantu.db');
@@ -105,9 +106,9 @@ export function getPosts(params: { category?: string; page: number; limit: numbe
       id: p.id,
       content: p.content,
       category: p.category,
-      images: JSON.parse(p.images),
+      images: absUrls(JSON.parse(p.images)),
       created_at: p.created_at,
-      author: { id: p.user_id, nick_name: p.author_name, avatar_url: p.author_avatar },
+      author: { id: p.user_id, nick_name: p.author_name, avatar_url: absUrl(p.author_avatar) },
       like_count: p.like_count,
       liked_by_me: p.liked_by_me > 0,
     })),
@@ -132,9 +133,9 @@ export function getPostById(id: number, userId?: number) {
     id: post.id,
     content: post.content,
     category: post.category,
-    images: JSON.parse(post.images),
+    images: absUrls(JSON.parse(post.images)),
     created_at: post.created_at,
-    author: { id: post.user_id, nick_name: post.author_name, avatar_url: post.author_avatar },
+    author: { id: post.user_id, nick_name: post.author_name, avatar_url: absUrl(post.author_avatar) },
     like_count: post.like_count,
     liked_by_me: post.liked_by_me > 0,
     comment_count: post.comment_count,
@@ -183,7 +184,7 @@ export function getComments(postId: number, page: number, limit: number) {
       id: c.id,
       content: c.content,
       created_at: c.created_at,
-      user: { id: c.user_id, nick_name: c.nick_name, avatar_url: c.avatar_url },
+      user: { id: c.user_id, nick_name: c.nick_name, avatar_url: absUrl(c.avatar_url) },
     })),
     total: total.c,
   };
@@ -255,7 +256,7 @@ export function getUserPosts(userId: number, page: number, limit: number) {
       id: p.id,
       content: p.content,
       category: p.category,
-      images: JSON.parse(p.images),
+      images: absUrls(JSON.parse(p.images)),
       created_at: p.created_at,
     })),
     total: total.c,
